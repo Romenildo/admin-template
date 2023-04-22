@@ -1,3 +1,6 @@
+import { BellIcon, ConfigIcon, HomeIcon, LogOutIcon } from "../icons";
+import AsideItem from "./AsideItem";
+import Logo from "./Logo";
 
 
 interface AsideProps{
@@ -6,6 +9,24 @@ interface AsideProps{
 
 export default function Aside(props:AsideProps){
     return(
-        <aside> Menu </aside>
+        <aside className="flex flex-col">
+            <div className={`
+                h-20 w-20 
+                bg-gradient-to-r from-indigo-500 to-purple-800
+                flex flex-col items-center justify-center
+                `}>
+                    <Logo/>
+            </div>
+            <ul className="flex-grow">
+                <AsideItem url="/" text="Início"  icon={HomeIcon}/>
+                <AsideItem url="/config" text="Ajustes"  icon={ConfigIcon}/>
+                <AsideItem url="/notifications" text="Notificações"  icon={BellIcon}/>
+            </ul>
+            <ul >
+                <AsideItem url="/" text="Sair"  icon={LogOutIcon} onClick={()=>console.log("logout")} 
+                className={` text-red-600 hover:bg-red-400 hover:text-white`}
+                />
+            </ul>
+        </aside>
     )
 }
