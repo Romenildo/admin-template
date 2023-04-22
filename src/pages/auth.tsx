@@ -1,12 +1,14 @@
 import { useState } from "react";
 import AuthInput from "../components/auth/AuthInput";
 import { WarnIcon } from "../components/icons";
+import useAuth from "../data/hook/useAuth";
 
 export default function Auth() {
 
   const images = ['image1.jpeg', 'image2.jpeg', 'image3.jpeg', 'image4.jpeg']
   const currentIndexImage = Math.floor((Math.random() * images.length))
 
+  const {user, loginGoogle } = useAuth() 
 
   const [mode, setMode] = useState<'login'|'cadastro'>('login')
   const [email, setEmail] = useState('')
@@ -60,7 +62,7 @@ export default function Auth() {
 
           <hr className="my-6 border-gray-300 w-full"></hr>
 
-          <button onClick={onSubmit} className={` w-full bg-red-500 hover:bg-red-400 text-white rounded-lg px-4 py-3`}>
+          <button onClick={loginGoogle} className={` w-full bg-red-500 hover:bg-red-400 text-white rounded-lg px-4 py-3`}>
             Entrar com Google
           </button>
 
