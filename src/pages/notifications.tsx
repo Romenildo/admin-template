@@ -1,6 +1,6 @@
 import Layout from "../components/template/Layout";
 
-export default function Home() {
+export default function Notifications() {
 
   return (
       <Layout title="Inicial" subTitle="Teste">
