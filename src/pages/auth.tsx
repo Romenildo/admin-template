@@ -1,19 +1,29 @@
 import { useState } from "react";
 import AuthInput from "../components/auth/AuthInput";
+import { WarnIcon } from "../components/icons";
 
 export default function Auth() {
 
   const [mode, setMode] = useState<'login'|'cadastro'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
+
 
   function onSubmit(){
     if(mode == 'login'){
-
+      showError("Erro no login")
     }else{
+      showError("Erro no Registro")
 
     }
   }
+
+  function showError(msg:string, time:number = 5){
+    setError(msg)
+    setTimeout(()=> setError(null), time*1000)
+  }
+
   return (
       <div className="flex h-screen items-center justify-center">
 
@@ -29,6 +39,15 @@ export default function Auth() {
           <h1 className={` text-3xl font-bold mb-5`}>
             {mode==='login'?'Entre com a Sua Conta': 'Cadastre-se na Plataforma'}
           </h1>
+
+          {error && (
+            <div className={` bg-red-400 text-white flex items-center py-3 px-5 my-2 border border-red-700 rounded-lg`}>
+              {WarnIcon(6)} <span className="ml-3">{error}</span>
+            </div>
+          )}
+          
+
+
           <AuthInput label="Email" value={email} onChange={setEmail} type="email" required></AuthInput>
           <AuthInput label="Password" value={password} onChange={setPassword} type="password" required></AuthInput>
 
