@@ -1,12 +1,9 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Layout from "../components/template/Layout";
 
 export default function Home() {
   return (
-   <div>
-    Hello worlds
-   </div>
+      <Layout title="Inicial" subTitle="Teste">
+        Conteudo
+      </Layout>
   )
 }
