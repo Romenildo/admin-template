@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 
 //O objeto que irá ser compartilhado por toda a aplicação
@@ -20,10 +20,10 @@ import { createContext, useState } from "react";
 // Então a partir dessa constante ela pode ser utilizada el qualquer componente bastando simplesmente
 //Chama-la const dados = useAppData(), entãon a partir daquele momente dados vai ter todas as funooes e valores passados no context
 
-type Theme = 'dark'| ''
+//type Theme = 'dark'| ''
 
 interface AppContextProps {
-    theme?: Theme
+    theme?: string
     changeTheme?: ()=>void
 }
 
@@ -32,12 +32,20 @@ const AppContext = createContext<AppContextProps>({ })
 
 export function AppProvider(props:any){
 
-    const [theme, setTheme] = useState<Theme>('')
+    const [theme, setTheme] = useState<string>('')
     
     function changeTheme(){
         //alternar ao clicar
-        setTheme(theme ==='' ? 'dark':'')
+        const newTheme = theme ==='' ? 'dark':''
+        setTheme(newTheme)
+        localStorage.setItem('thema', newTheme)
     }
+
+    useEffect(()=>{
+        const salvedTheme = localStorage.getItem('thema')
+        setTheme(salvedTheme)
+    },[])
+
     return(
         //Cria o provedor que vai enviar o valor para todos os componentes abaixo dele
         //Então o componente que tiver englobado dentro do Provider vai poder acessaro o objeto que está dentro de value
