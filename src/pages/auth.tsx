@@ -4,11 +4,14 @@ import { WarnIcon } from "../components/icons";
 
 export default function Auth() {
 
+  const images = ['image1.jpeg', 'image2.jpeg', 'image3.jpeg', 'image4.jpeg']
+  const currentIndexImage = Math.floor((Math.random() * images.length))
+
+
   const [mode, setMode] = useState<'login'|'cadastro'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
-
 
   function onSubmit(){
     if(mode == 'login'){
@@ -29,7 +32,7 @@ export default function Auth() {
 
         <div className="hidden md:block md:w-1/2 lg:w-2/3">
           {/*Pegar imagem aleatoria toda vez que abrir a pagina */}
-          <img src="https://source.unsplash.com/beach" 
+          <img src={`/imgs/${images[currentIndexImage]}`}
                alt="Imagem da tela de autenticacao" 
                className="h-screen w-full object-cover"
                />
