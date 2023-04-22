@@ -1,3 +1,4 @@
+import useAuth from "../../data/hook/useAuth";
 import { BellIcon, ConfigIcon, HomeIcon, LogOutIcon } from "../icons";
 import AsideItem from "./AsideItem";
 import Logo from "./Logo";
@@ -8,6 +9,9 @@ interface AsideProps{
 }
 
 export default function Aside(props:AsideProps){
+
+    const { logout } = useAuth()
+
     return(
         <aside className={`flex flex-col
                          bg-gray-200
@@ -26,7 +30,7 @@ export default function Aside(props:AsideProps){
                 <AsideItem url="/notifications" text="Notificações"  icon={BellIcon}/>
             </ul>
             <ul >
-                <AsideItem url="/" text="Sair"  icon={LogOutIcon} onClick={()=>console.log("logout")} 
+                <AsideItem url="/" text="Sair"  icon={LogOutIcon} onClick={()=>logout} 
                 className={` text-red-600 dark:text-red-400
                              hover:bg-red-400 hover:text-white
                               dark:hover:text-white

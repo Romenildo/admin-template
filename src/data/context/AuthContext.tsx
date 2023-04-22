@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 interface AuthContextProps {
     user?: User
     loginGoogle?: ()=> Promise<void>
+    logout?: ()=> Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps>({})
@@ -57,26 +58,45 @@ export function AuthProvider(props:any){
     }
 
     async function loginGoogle() {
-        const resp = await firebase.auth().signInWithPopup(
-            new firebase.auth.GoogleAuthProvider()
-        )
-        configSession(resp.user)
-        router.push('/')
+        try{
+            setLoading(true)
+            const resp = await firebase.auth().signInWithPopup(
+                new firebase.auth.GoogleAuthProvider()
+            )
+            configSession(resp.user)
+            router.push('/')
+        }finally{
+            setLoading(false)
+        }
 
     }
 
+    async function logout(){
+        try{
+            setLoading(true)
+            await firebase.auth().signOut()
+            await configSession(null)
+            router.push('/auth')
+        } finally{
+            setLoading(false)
+        }
+    }
+
     useEffect(()=>{
-        //observer no onIdtokenChanged então quando o token do usuario for modificado ele vai lancar um evento e executar a funcao
+        if(Cookies.get('admin-template-auth')){
+            //observer no onIdtokenChanged então quando o token do usuario for modificado ele vai lancar um evento e executar a funcao
         //entao ele vai verificar a sessao se o usuario ainda estiver no cookie ele via continuar logado
         const cancel = firebase.auth().onIdTokenChanged(configSession)
         return () => cancel()
+        }
     })
 
     return(
         //user e a funcao vai para o contexto e se tornara global para todos os componentes
         <AuthContext.Provider value={{
             user,
-            loginGoogle
+            loginGoogle,
+            logout
         }}>
             {props.children}
         </AuthContext.Provider>
