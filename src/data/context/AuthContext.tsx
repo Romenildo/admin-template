@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 
 interface AuthContextProps {
     user?: User
+    loading?: boolean
     loginGoogle?: ()=> Promise<void>
     logout?: ()=> Promise<void>
 }
@@ -88,6 +89,8 @@ export function AuthProvider(props:any){
         //entao ele vai verificar a sessao se o usuario ainda estiver no cookie ele via continuar logado
         const cancel = firebase.auth().onIdTokenChanged(configSession)
         return () => cancel()
+        }else{
+            setLoading(false)
         }
     })
 
@@ -95,8 +98,10 @@ export function AuthProvider(props:any){
         //user e a funcao vai para o contexto e se tornara global para todos os componentes
         <AuthContext.Provider value={{
             user,
+            loading,
             loginGoogle,
-            logout
+            logout,
+            
         }}>
             {props.children}
         </AuthContext.Provider>

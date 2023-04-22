@@ -30,7 +30,7 @@ export default function Aside(props:AsideProps){
                 <AsideItem url="/notifications" text="Notificações"  icon={BellIcon}/>
             </ul>
             <ul >
-                <AsideItem url="/" text="Sair"  icon={LogOutIcon} onClick={()=>logout} 
+                <AsideItem url="/" text="Sair"  icon={LogOutIcon} onClick={logout} 
                 className={` text-red-600 dark:text-red-400
                              hover:bg-red-400 hover:text-white
                               dark:hover:text-white
