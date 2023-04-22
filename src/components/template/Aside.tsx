@@ -3,12 +3,7 @@ import { BellIcon, ConfigIcon, HomeIcon, LogOutIcon } from "../icons";
 import AsideItem from "./AsideItem";
 import Logo from "./Logo";
 
-
-interface AsideProps{
-
-}
-
-export default function Aside(props:AsideProps){
+export default function Aside(){
 
     const { logout } = useAuth()
 

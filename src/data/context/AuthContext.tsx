@@ -7,6 +7,8 @@ import Cookies from 'js-cookie'
 interface AuthContextProps {
     user?: User
     loading?: boolean
+    login?: (email:string, password:string)=> Promise<void>
+    register?: (email:string, password:string)=> Promise<void>
     loginGoogle?: ()=> Promise<void>
     logout?: ()=> Promise<void>
 }
@@ -64,7 +66,30 @@ export function AuthProvider(props:any){
             const resp = await firebase.auth().signInWithPopup(
                 new firebase.auth.GoogleAuthProvider()
             )
-            configSession(resp.user)
+            await configSession(resp.user)
+            router.push('/')
+        }finally{
+            setLoading(false)
+        }
+
+    }
+
+    async function login(email, password) {
+        try{
+            setLoading(true)
+            const resp = await firebase.auth().signInWithEmailAndPassword(email, password)
+            await configSession(resp.user)
+            router.push('/')
+        }finally{
+            setLoading(false)
+        }
+
+    }
+    async function register(email, password) {
+        try{
+            setLoading(true)
+            const resp = await firebase.auth().createUserWithEmailAndPassword(email, password)
+            await configSession(resp.user)
             router.push('/')
         }finally{
             setLoading(false)
@@ -101,6 +126,8 @@ export function AuthProvider(props:any){
             loading,
             loginGoogle,
             logout,
+            login,
+            register
             
         }}>
             {props.children}

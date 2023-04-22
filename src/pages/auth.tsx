@@ -5,22 +5,23 @@ import useAuth from "../data/hook/useAuth";
 
 export default function Auth() {
 
-  const images = ['image1.jpeg', 'image2.jpeg', 'image3.jpeg', 'image4.jpeg']
-  const currentIndexImage = Math.floor((Math.random() * images.length))
 
-  const {user, loginGoogle } = useAuth() 
+  const {register, login, loginGoogle } = useAuth() 
 
   const [mode, setMode] = useState<'login'|'cadastro'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
 
-  function onSubmit(){
-    if(mode == 'login'){
-      showError("Erro no login")
-    }else{
-      showError("Erro no Registro")
-
+  async function onSubmit(){
+    try{
+      if(mode === 'login'){
+        await login(email, password)
+      }else{
+        await register(email, password)
+      }
+    }catch(e){
+      showError(e?.message ?? 'Erro inesperado!')
     }
   }
 
@@ -34,7 +35,7 @@ export default function Auth() {
 
         <div className="hidden md:block md:w-1/2 lg:w-2/3">
           {/*Pegar imagem aleatoria toda vez que abrir a pagina */}
-          <img src={`/imgs/${images[currentIndexImage]}`}
+          <img src={`/imgs/image2.jpeg`}
                alt="Imagem da tela de autenticacao" 
                className="h-screen w-full object-cover"
                />
