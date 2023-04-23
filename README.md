@@ -35,13 +35,13 @@ Projeto desenvoldido com as ferramentas de:
 
  
  # Aplicação Final
- Tela de registro de novo usuário
+ ## Tela de registro de novo usuário
  ![](https://github.com/Romenildo/Treinamento-GIT/blob/master/imgs/projetos/register.png)
  
- Tela de login do usuário, tanto registro quanto login podem ser feito atráves do google ou email
+ ## Tela de login do usuário, tanto registro quanto login podem ser feito atráves do google ou email
  ![](https://github.com/Romenildo/Treinamento-GIT/blob/master/imgs/projetos/login.png)
   
-  Template da Página com modo dark e light
+ ## Template da Página com modo dark e light
  ![](https://github.com/Romenildo/Treinamento-GIT/blob/master/imgs/projetos/template.gif)
  
  ```
